@@ -1,0 +1,229 @@
+:root {
+  /* Brand Colors */
+  --green-primary: #10b981;
+  --green-hover: #059669;
+  --green-bg: #ecfdf5;
+  --green-text: #065f46;
+
+  --red-primary: #ef4444;
+  --red-hover: #dc2626;
+  --red-bg: #fef2f2;
+  --red-text: #991b1b;
+
+  --blue-primary: #3b82f6;
+  --blue-hover: #2563eb;
+  --blue-bg: #eff6ff;
+  --blue-text: #1e40af;
+
+  /* Neutrals */
+  --surface-ground: #f8fafc;
+  --surface-card: #ffffff;
+  --surface-border: #e2e8f0;
+
+  --text-main: #0f172a;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Spacing & Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--surface-ground);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+p {
+  margin: 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* --- Reusable Components --- */
+
+/* Cards */
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Forms */
+label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: var(--text-main);
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-card);
+  color: var(--text-main);
+  font-size: 0.925rem;
+  transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--blue-primary);
+  box-shadow: 0 0 0 2px var(--blue-bg);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: 0.925rem;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--text-main);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #000;
+}
+
+.btn-ghost {
+  color: var(--text-secondary);
+  background-color: transparent;
+}
+
+.btn-ghost:hover {
+  background-color: var(--surface-ground);
+  color: var(--text-main);
+}
+
+.btn-green {
+  background-color: var(--green-primary);
+  color: white;
+}
+
+.btn-green:hover {
+  background-color: var(--green-hover);
+}
+
+.btn-red {
+  background-color: var(--red-primary);
+  color: white;
+}
+
+.btn-red:hover {
+  background-color: var(--red-hover);
+}
+
+.btn-blue {
+  background-color: var(--blue-primary);
+  color: white;
+}
+
+.btn-blue:hover {
+  background-color: var(--blue-hover);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-gray {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.badge-green {
+  background: var(--green-bg);
+  color: var(--green-text);
+}
+
+.badge-red {
+  background: var(--red-bg);
+  color: var(--red-text);
+}
+
+.badge-blue {
+  background: var(--blue-bg);
+  color: var(--blue-text);
+}
+
+/* Tables */
+.table-simple {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-simple th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--surface-border);
+  color: var(--text-secondary);
+  font-size: 0.825rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table-simple td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--surface-border);
+  color: var(--text-main);
+  font-size: 0.925rem;
+}
+
+.table-simple tr:last-child td {
+  border-bottom: none;
+}
