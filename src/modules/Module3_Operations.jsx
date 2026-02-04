@@ -279,29 +279,49 @@ const Module3_Operations = () => {
                     </div>
                 )}
 
-                {/* TAB: TASKS */}
+                {/* TAB: TASKS (Now Ticketing System) */}
                 {activeTab === 'tasks' && (
-                    <div className="max-w-4xl mx-auto card bg-white shadow-sm border border-slate-200">
-                         <h3 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-2"><CheckSquare className="text-blue-600"/> Admin To-Do List</h3>
-                         <div className="space-y-2">
-                             {[
-                                 { title: 'Review Q3 Tax Documents', priority: 'High', color: 'red' },
-                                 { title: 'Approve New Talent Profiles', priority: 'Medium', color: 'orange' },
-                                 { title: 'Prepare Monthly Newsletter', priority: 'Low', color: 'blue' },
-                                 { title: 'Update Privacy Policy', priority: 'Low', color: 'blue' }
-                             ].map((task, i) => (
-                                 <div key={i} className="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer group hover:border-blue-300">
-                                     <div className="group-hover:bg-blue-50 p-2 rounded-full transition-colors"><input type="checkbox" className="w-5 h-5 rounded text-blue-600 focus:ring-blue-500 cursor-pointer" /></div>
-                                     <span className="flex-1 font-bold text-slate-700 group-hover:text-blue-600 transition-colors">{task.title}</span>
-                                     <span className={`px-2 py-1 rounded text-xs font-bold bg-${task.color}-50 text-${task.color}-600 border border-${task.color}-100`}>
-                                         {task.priority} Priority
-                                     </span>
+                    <div className="max-w-7xl mx-auto h-[80vh] flex flex-col">
+                         <div className="flex justify-between items-center mb-6">
+                              <div>
+                                  <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2"><CheckSquare className="text-blue-600"/> Helpdesk & Ticketing</h3>
+                                  <p className="text-slate-500 text-sm">Internal tech support and operational requests</p>
+                              </div>
+                              <button className="btn btn-blue flex items-center gap-2 shadow-sm"><PlusCircle size={20}/> New Ticket</button>
+                         </div>
+                         
+                         <div className="flex gap-6 h-full overflow-x-auto pb-4">
+                             {['Open', 'In Progress', 'Resolved'].map((status, colIdx) => (
+                                 <div key={status} className="w-[350px] flex-shrink-0 flex flex-col bg-slate-100/50 rounded-xl border border-slate-200 h-full">
+                                     <div className={`p-4 border-b border-slate-200 flex justify-between items-center rounded-t-xl ${colIdx === 0 ? 'bg-red-50/50' : colIdx === 1 ? 'bg-blue-50/50' : 'bg-green-50/50'}`}>
+                                         <span className="font-bold text-slate-700 text-sm uppercase tracking-wide">{status}</span>
+                                         <span className="bg-white px-2 py-0.5 rounded text-xs font-bold text-slate-500 border border-slate-200 shadow-sm">3</span>
+                                     </div>
+                                     <div className="p-3 space-y-3 overflow-y-auto flex-1 custom-scrollbar">
+                                         {[1,2,3].map((ticket) => (
+                                             <div key={ticket} className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md cursor-pointer group hover:border-blue-300 transition-all">
+                                                 <div className="flex justify-between mb-2">
+                                                     <span className="text-[10px] font-mono text-slate-400 font-bold">TKT-{400+ticket}</span>
+                                                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${ticket === 1 ? 'bg-red-50 text-red-600 border-red-100' : 'bg-blue-50 text-blue-600 border-blue-100'}`}>
+                                                         {ticket === 1 ? 'High Priority' : 'Normal'}
+                                                     </span>
+                                                 </div>
+                                                 <h4 className="font-bold text-slate-800 text-sm mb-2 leading-snug">
+                                                     {ticket === 1 ? "VPN Access dropping intermittently" : "Request for new Adobe license"}
+                                                 </h4>
+                                                 <div className="flex justify-between items-center pt-3 border-t border-slate-50 mt-3">
+                                                     <div className="flex items-center gap-2">
+                                                         <img src={`https://ui-avatars.com/api/?name=User+${ticket}&background=random`} className="w-5 h-5 rounded-full" alt=""/>
+                                                         <span className="text-xs text-slate-500 font-medium">Ops Team</span>
+                                                     </div>
+                                                     <span className="text-xs text-slate-400">2 days ago</span>
+                                                 </div>
+                                             </div>
+                                         ))}
+                                     </div>
                                  </div>
                              ))}
                          </div>
-                         <button className="mt-6 flex items-center gap-2 text-slate-500 hover:text-blue-600 font-bold p-2 hover:bg-slate-50 rounded w-fit px-4 transition-colors">
-                             <PlusCircle size={20}/> Add new task
-                         </button>
                     </div>
                 )}
 
@@ -311,7 +331,7 @@ const Module3_Operations = () => {
                         {/* Sub-nav for dashboard */}
                         <div className="flex justify-center mb-6">
                              <div className="bg-white p-1 rounded-xl border border-slate-200 inline-flex shadow-sm">
-                                 {['overview', 'sales', 'finance', 'utilization'].map(view => (
+                                 {['overview', 'goals', 'sales', 'finance'].map(view => (
                                      <button 
                                         key={view}
                                         onClick={() => setDashboardView(view)}
@@ -322,6 +342,85 @@ const Module3_Operations = () => {
                                  ))}
                              </div>
                         </div>
+
+                        {dashboardView === 'goals' && (
+                             <div className="max-w-5xl mx-auto space-y-6">
+                                 <div className="flex justify-between items-center">
+                                     <h3 className="text-xl font-bold text-slate-800">Q4 2025 Performance Goals</h3>
+                                     <button className="btn btn-blue shadow-sm">+ Set New Goal</button>
+                                 </div>
+                                 
+                                 <div className="card bg-white p-8 shadow-sm border border-slate-200">
+                                      <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6 border-b border-slate-100 pb-2">Financial Targets</h4>
+                                      <div className="space-y-8">
+                                          <div>
+                                              <div className="flex justify-between items-end mb-2">
+                                                  <div>
+                                                      <h5 className="font-bold text-slate-800 text-lg">Revenue Target</h5>
+                                                      <p className="text-slate-500 text-sm">Hit €500k ARR by end of Q4</p>
+                                                  </div>
+                                                  <span className="font-mono font-bold text-green-600 text-xl">82%</span>
+                                              </div>
+                                              <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                                  <div className="h-full bg-green-500 rounded-full shadow-sm" style={{width: '82%'}}></div>
+                                              </div>
+                                              <div className="flex justify-between mt-2 text-xs font-bold text-slate-400 uppercase">
+                                                  <span>Started: €320k</span>
+                                                  <span>Goal: €500k</span>
+                                              </div>
+                                          </div>
+                                          <div>
+                                              <div className="flex justify-between items-end mb-2">
+                                                  <div>
+                                                      <h5 className="font-bold text-slate-800 text-lg">Profit Margin</h5>
+                                                      <p className="text-slate-500 text-sm">Maintain &gt;25% net margin</p>
+                                                  </div>
+                                                  <span className="font-mono font-bold text-slate-800 text-xl">22%</span>
+                                              </div>
+                                              <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                                                  <div className="h-full bg-orange-500 rounded-full shadow-sm" style={{width: '65%'}}></div>
+                                              </div>
+                                              <div className="flex justify-between mt-2 text-xs font-bold text-slate-400 uppercase">
+                                                  <span>Current: 22%</span>
+                                                  <span>Target: 25%</span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                 </div>
+
+                                 <div className="grid grid-cols-2 gap-6">
+                                      <div className="card bg-white p-6 shadow-sm border border-slate-200">
+                                         <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Growth</h4>
+                                          <div>
+                                              <div className="flex justify-between items-center mb-1">
+                                                  <h5 className="font-bold text-slate-800">New Client Acquisition</h5>
+                                                  <span className="badge badge-blue">On Track</span>
+                                              </div>
+                                              <p className="text-xs text-slate-500 mb-3">Sign 5 new enterprise logos</p>
+                                              <div className="flex gap-1 mb-2">
+                                                  {[1,2,3].map(i => <div key={i} className="flex-1 h-2 bg-blue-500 rounded-full"></div>)}
+                                                  {[1,2].map(i => <div key={i} className="flex-1 h-2 bg-slate-100 rounded-full"></div>)}
+                                              </div>
+                                              <p className="text-right text-xs font-bold text-blue-600">3 / 5 Secured</p>
+                                          </div>
+                                      </div>
+                                      <div className="card bg-white p-6 shadow-sm border border-slate-200">
+                                         <h4 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Talent</h4>
+                                          <div>
+                                              <div className="flex justify-between items-center mb-1">
+                                                  <h5 className="font-bold text-slate-800">Developer Retention</h5>
+                                                  <span className="badge badge-green">Excellent</span>
+                                              </div>
+                                              <p className="text-xs text-slate-500 mb-3">Keep churn under 5%</p>
+                                              <div className="w-full h-2 bg-slate-100 rounded-full">
+                                                  <div className="h-full bg-green-500 rounded-full w-[10%]"></div>
+                                              </div>
+                                              <p className="text-right text-xs font-bold text-green-600 mt-2">1.2% Churn (YTD)</p>
+                                          </div>
+                                      </div>
+                                 </div>
+                             </div>
+                        )}
 
                         {dashboardView === 'overview' && (
                             <div className="grid grid-cols-3 gap-6">

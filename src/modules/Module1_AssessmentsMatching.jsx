@@ -296,9 +296,9 @@ const Module1_AssessmentsMatching = () => {
                                 </div>
 
                                 <div className="flex gap-4 flex-row-reverse max-w-[80%] ml-auto">
-                                    <div className="w-8 h-8 rounded-full bg-blue-500 flex-shrink-0 flex items-center justify-center text-white text-xs mt-auto mb-1">ME</div>
+                                    <div className="w-8 h-8 rounded-full bg-green-700 flex-shrink-0 flex items-center justify-center text-white text-xs mt-auto mb-1">ME</div>
                                     <div className="flex flex-col gap-1 items-end">
-                                        <div className="bg-blue-600 text-white p-4 rounded-2xl rounded-br-none shadow-md text-sm">
+                                        <div className="bg-gradient-to-br from-green-500 to-green-600 text-white p-4 rounded-2xl rounded-br-none shadow-md text-sm">
                                             I need a Senior React Native dev for a 3-month fintech project. Maximum budget €95/h.
                                         </div>
                                         <span className="text-xs text-slate-400 mr-1">Read 10:25 AM</span>
@@ -453,6 +453,103 @@ const Module1_AssessmentsMatching = () => {
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                )}
+
+                {/* TAB: DATABASE (NEW - Manual Matching) */}
+                {activeTab === 'database' && (
+                    <div className="flex gap-6 h-[80vh] max-w-[1600px] mx-auto">
+                        {/* Filters Sidebar */}
+                        <div className="w-64 card bg-white p-4 overflow-y-auto">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="font-bold text-slate-800">Filters</h3>
+                                <button className="text-xs text-green-600 hover:underline">Reset</button>
+                            </div>
+                            
+                            <div className="space-y-6">
+                                <div>
+                                    <h4 className="text-xs font-bold text-slate-500 uppercase mb-2">Technical Stack</h4>
+                                    <div className="space-y-2">
+                                        {['React', 'Node.js', 'Python', 'Java', 'AWS'].map(skill => (
+                                            <label key={skill} className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer hover:text-slate-900">
+                                                <input type="checkbox" className="rounded border-slate-300 text-green-600 focus:ring-green-500"/>
+                                                {skill}
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 className="text-xs font-bold text-slate-500 uppercase mb-2">Seniority</h4>
+                                    <select className="w-full text-sm border-slate-200 rounded-md">
+                                        <option>Any Level</option>
+                                        <option>Junior (1-3y)</option>
+                                        <option>Mid (3-5y)</option>
+                                        <option>Senior (5-8y)</option>
+                                        <option>Lead (8y+)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <h4 className="text-xs font-bold text-slate-500 uppercase mb-2">Availability</h4>
+                                    <label className="flex items-center gap-2 text-sm text-slate-600">
+                                        <input type="checkbox" checked className="rounded border-slate-300 text-green-600"/>
+                                        Immediately
+                                    </label>
+                                    <label className="flex items-center gap-2 text-sm text-slate-600 mt-1">
+                                        <input type="checkbox" className="rounded border-slate-300 text-green-600"/>
+                                        &lt; 2 Weeks
+                                    </label>
+                                </div>
+                                <div>
+                                    <h4 className="text-xs font-bold text-slate-500 uppercase mb-2">Daily Rate Max</h4>
+                                    <input type="range" className="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-green-600"/>
+                                    <div className="flex justify-between text-xs text-slate-400 mt-1">
+                                        <span>€300</span>
+                                        <span>€1200+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Results Grid */}
+                        <div className="flex-1 overflow-y-auto custom-scrollbar">
+                             <div className="grid grid-cols-3 gap-6">
+                                 {data.developers.map((dev, i) => (
+                                     <div key={dev.id} className="card bg-white p-6 hover:shadow-lg transition-all border border-slate-100 group">
+                                         <div className="flex justify-between items-start mb-4">
+                                              <div className="w-16 h-16 rounded-xl bg-slate-100 flex items-center justify-center text-3xl shadow-inner">
+                                                  {i % 2 === 0 ? '👨‍💻' : '👩‍💻'}
+                                              </div>
+                                              <span className={`badge ${dev.status === 'Available' ? 'badge-green' : 'badge-gray'}`}>{dev.status}</span>
+                                         </div>
+                                         <h3 className="font-bold text-lg text-slate-800 mb-1">{dev.name}</h3>
+                                         <p className="text-sm text-slate-500 mb-4">{dev.role}</p>
+                                         
+                                         <div className="flex flex-wrap gap-2 mb-4">
+                                             {dev.specialties.map(s => <span key={s} className="text-[10px] bg-slate-50 text-slate-600 px-2 py-1 rounded border border-slate-100">{s}</span>)}
+                                         </div>
+                                         
+                                         <div className="pt-4 border-t border-slate-50 flex items-center justify-between">
+                                             <div className="text-xs font-bold text-slate-400">
+                                                 <span className="text-slate-800 text-sm">€{dev.rate}</span>/h
+                                             </div>
+                                             <button className="btn btn-green text-xs py-2 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">View Profile</button>
+                                         </div>
+                                     </div>
+                                 ))}
+                                 {/* Mock Data for visual fullness */}
+                                 {[1,2,3,4].map(k => (
+                                     <div key={k} className="card bg-white p-6 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer border border-dashed border-slate-300 hover:border-solid hover:border-green-200">
+                                         <div className="w-16 h-16 rounded-xl bg-slate-50 mb-4"></div>
+                                         <div className="h-5 bg-slate-100 rounded w-3/4 mb-2"></div>
+                                         <div className="h-4 bg-slate-50 rounded w-1/2 mb-4"></div>
+                                         <div className="flex gap-2">
+                                             <div className="h-6 w-12 bg-slate-100 rounded"></div>
+                                             <div className="h-6 w-12 bg-slate-100 rounded"></div>
+                                         </div>
+                                     </div>
+                                 ))}
+                             </div>
+                        </div>
                     </div>
                 )}
             </main>
