@@ -113,6 +113,24 @@ const Module1_AssessmentsMatching = () => {
                                  </div>
                                  <p className="text-xs text-slate-400">33% Complete</p>
                              </div>
+
+                             {/* Tags Library */}
+                             <div className="card bg-white p-6 border-t-4 border-t-green-500">
+                                 <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                     <FileText size={18} className="text-green-600"/> Tags Library
+                                 </h4>
+                                 <div className="space-y-2">
+                                     <p className="text-xs text-slate-500 mb-3">Common tags to attach to profiles:</p>
+                                     <div className="flex flex-wrap gap-2">
+                                         {['startup experience', 'EU data-law trained', 'Fintech', 'B2B SaaS', 'Scale-up', 'Founder-friendly', 'Remote-first', 'Enterprise'].map(tag => (
+                                             <button key={tag} className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-100 hover:bg-green-100 transition-colors">
+                                                 {tag}
+                                             </button>
+                                         ))}
+                                     </div>
+                                     <button className="w-full mt-3 text-xs text-green-600 font-bold hover:underline">+ Add Custom Tag</button>
+                                 </div>
+                             </div>
                         </div>
                     </div>
                 )}
@@ -154,50 +172,79 @@ const Module1_AssessmentsMatching = () => {
 
                  {/* TAB: ASSESSMENT RESULTS */}
                  {activeTab === 'assessments_results' && (
-                    <div className="max-w-6xl mx-auto card bg-white p-0 overflow-hidden">
-                        <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
-                             <h3 className="text-xl font-bold">Candidate Scores</h3>
-                             <div className="relative w-64">
-                                 <Search className="absolute left-3 top-2.5 text-slate-400" size={18}/>
-                                 <input className="pl-10 py-2 w-full bg-slate-50 border-slate-200 rounded-full" placeholder="Search candidate..." />
-                             </div>
-                        </div>
-                        <table className="table-simple w-full">
-                            <thead className="bg-slate-50/50">
-                                <tr>
-                                    <th className="pl-6">Candidate</th>
-                                    <th>Test Name</th>
-                                    <th>Date</th>
-                                    <th>Score</th>
-                                    <th>Percentile</th>
-                                    <th>Status</th>
-                                    <th className="pr-6 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.assessments.map(a => {
-                                    const dev = data.developers.find(d => d.id === a.developerId);
-                                    return (
-                                        <tr key={a.id} className="hover:bg-slate-50/50 transition-colors">
-                                            <td className="pl-6 font-bold text-slate-800">{dev?.name || 'Unknown'}</td>
-                                            <td className="text-slate-600">{a.type}</td>
-                                            <td className="text-slate-500 text-sm">{new Date(a.completedDate).toLocaleDateString()}</td>
-                                            <td>
-                                                <div className="flex items-center gap-3">
-                                                    <span className={`font-bold text-lg ${a.score > 80 ? 'text-green-600' : 'text-orange-500'}`}>{a.score}%</span>
-                                                    <div className="w-20 bg-slate-100 rounded-full h-1.5">
-                                                        <div className={`h-1.5 rounded-full ${a.score > 80 ? 'bg-green-500' : 'bg-orange-400'}`} style={{width: `${a.score}%`}}></div>
+                    <div className="max-w-6xl mx-auto space-y-6">
+                        <div className="card bg-white p-0 overflow-hidden">
+                            <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
+                                 <h3 className="text-xl font-bold">Candidate Scores</h3>
+                                 <div className="relative w-64">
+                                     <Search className="absolute left-3 top-2.5 text-slate-400" size={18}/>
+                                     <input className="pl-10 py-2 w-full bg-slate-50 border-slate-200 rounded-full" placeholder="Search candidate..." />
+                                 </div>
+                            </div>
+                            <table className="table-simple w-full">
+                                <thead className="bg-slate-50/50">
+                                    <tr>
+                                        <th className="pl-6">Candidate</th>
+                                        <th>Test Name</th>
+                                        <th>Date</th>
+                                        <th>Score</th>
+                                        <th>Percentile</th>
+                                        <th>Status</th>
+                                        <th className="pr-6 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {data.assessments.map(a => {
+                                        const dev = data.developers.find(d => d.id === a.developerId);
+                                        return (
+                                            <tr key={a.id} className="hover:bg-slate-50/50 transition-colors">
+                                                <td className="pl-6 font-bold text-slate-800">{dev?.name || 'Unknown'}</td>
+                                                <td className="text-slate-600">{a.type}</td>
+                                                <td className="text-slate-500 text-sm">{new Date(a.completedDate).toLocaleDateString()}</td>
+                                                <td>
+                                                    <div className="flex items-center gap-3">
+                                                        <span className={`font-bold text-lg ${a.score > 80 ? 'text-green-600' : 'text-orange-500'}`}>{a.score}%</span>
+                                                        <div className="w-20 bg-slate-100 rounded-full h-1.5">
+                                                            <div className={`h-1.5 rounded-full ${a.score > 80 ? 'bg-green-500' : 'bg-orange-400'}`} style={{width: `${a.score}%`}}></div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td className="text-slate-500 text-sm">Top 10%</td>
-                                            <td><span className="badge badge-green">Completed</span></td>
-                                            <td className="pr-6 text-right"><button className="text-blue-600 font-bold text-sm hover:underline">Report</button></td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
+                                                </td>
+                                                <td className="text-slate-500 text-sm">Top 10%</td>
+                                                <td><span className="badge badge-green">Completed</span></td>
+                                                <td className="pr-6 text-right"><button className="text-blue-600 font-bold text-sm hover:underline">Report</button></td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Interview Notes Section */}
+                        <div className="card bg-white p-6">
+                            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                                <FileText className="text-green-600" size={20}/> Interview Notes & Soft-skill Evaluation
+                            </h3>
+                            <div className="space-y-4">
+                                {data.developers.map(dev => (
+                                    <div key={dev.id} className="border border-slate-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <h4 className="font-bold text-slate-800">{dev.name}</h4>
+                                            <span className="badge badge-green">Interviewed</span>
+                                        </div>
+                                        <div className="text-sm text-slate-600 space-y-2">
+                                            <p><strong>Technical Assessment:</strong> Strong problem-solving skills, excellent code quality. Areas for growth: system design at scale.</p>
+                                            <p><strong>Soft Skills:</strong> Clear communication, proactive in async environments. Good cultural fit for remote-first teams.</p>
+                                            <p><strong>Interview Notes:</strong> "Demonstrated deep understanding of EU data compliance. Can explain complex trade-offs clearly. Recommended for fintech projects."</p>
+                                        </div>
+                                        <div className="mt-3 flex flex-wrap gap-2">
+                                            {dev.tags.map(tag => (
+                                                <span key={tag} className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded border border-green-100">{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 )}
 
